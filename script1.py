@@ -74,10 +74,10 @@ sample_leaf_options = [1,5,10,50,100,200,500]
 #     rf = RandomForestClassifier(n_estimators = 500, oob_score = True, max_features = "auto",min_samples_leaf = leaf_size)
 #     rf.fit(X_train, y_train)
 #     print("AUC - ROC : ", rf.score(X_test, y_test), leaf_size)
-parameters = {'n_estimators':(1000),'max_features':(None, 9, 6, 'auto'),'max_depth':(None, 24, 16),'min_samples_split': (2, 4, 8),'min_samples_leaf': (16, 4, 12)}
+parameters = {'max_features':('auto', 9, 6, ),'max_depth':(None, 24, 16),'min_samples_split': (2, 4, 8),'min_samples_leaf': (16, 4, 12)}
 
-rf = RandomForestClassifier()
-clf = GridSearchCV(rf, parameters, cv=10, n_jobs=2)
+rf = RandomForestClassifier(n_estimators =500)
+clf = GridSearchCV(rf, parameters, cv=10, n_jobs=2, scoring='accuracy', verbose=10)
 clf.fit(X_train, y_train)
 # y_predict = rf.predict(X_test)
 X_1, X_2, y_1, y_2 = train_test_split(X_train, y_train, test_size=0.2)
